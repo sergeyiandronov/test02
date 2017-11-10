@@ -16,7 +16,7 @@ int main() {
     getline(cin,line);
     istringstream arrstream(line);
     int *arr=new int[n];
-    for(int i=0;i<n;i++){
+    for(unsigned int i=0;i<n;i++){
         if(!(arrstream>>arr[i])){
             cout<<"An error has occuried while reading input data.";
             exit(0);
@@ -26,14 +26,14 @@ int main() {
 
 
 
-    for(  int j=0;j<n/2;j++){
+    for( unsigned  int j=0;j<n/2;j++){
 
-     swap(arr[j],arr[n-j-1]);
+        swap(arr[j],arr[n-j-1]);
 
     }
 
 
-    for(int i=0;i<n;i++){
+    for(unsigned int i=0;i<n;i++){
         cout<<arr[i]<<" ";
     }
     return 0;

@@ -68,7 +68,7 @@ bool get_size(unsigned int& columns,
     char razdel;
     getline(cin, header);
     istringstream str(header);
-    if ((str >> rows) && (str >> razdel) && (str >> columns) && (razdel == ',')) {
+    if ((str >> rows)&&(str >> razdel) && (str >> columns) && (razdel == ',')) {
         return true;
     }
     return false;
@@ -124,6 +124,8 @@ int main()
 {
     float** matrix;
     unsigned int columns,rows,sdvig;
+  
+   
     if(get_size(columns,rows))
     {
         if(get_matrix(matrix,columns,rows)&&get_sdvig(sdvig))
@@ -139,4 +141,5 @@ int main()
     	cout<<"An error has occured while reading input data";
     	exit(0);
     }
+    
 }

@@ -4,11 +4,11 @@ using namespace std;
 
 int main() {
     int n;
-
+    char er;
     string line;
     getline(cin,line);
     istringstream numstream(line);
-  
+    
     if(!(numstream>>n)||!(n>0)){
         cout<<"An error has occuried while reading input data.";
         exit(0);
@@ -23,6 +23,10 @@ int main() {
             exit(0);
         }
 
+    }
+    if(arrstream>>er){
+    	 cout<<"An error has occuried while reading input data.";
+            exit(0);
     }
 
 

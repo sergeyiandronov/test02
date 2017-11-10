@@ -1,14 +1,14 @@
 #include <iostream>
 #include <sstream>
 using namespace std;
-int reverse(int *& ar,unsigned int n){
+void reverse(int *& ar,unsigned int n){
     for(  unsigned int j=0;j<n/2;j++){
 
         swap(ar[j],ar[n-j-1]);
 
     }
 }
-int doublereverse(int *& ar,unsigned int position,unsigned int n){
+void  doublereverse(int *& ar,unsigned int position,unsigned int n){
     for( unsigned int j=0;j<position/2;j++){
 
         swap(ar[j],ar[position-j-1]);

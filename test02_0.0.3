@@ -64,11 +64,16 @@ bool get_size(unsigned int& columns,
               unsigned int& rows)
 {
     string header;
-
+    int nrows;
+    int ncolumns;
     char razdel;
     getline(cin, header);
     istringstream str(header);
-    if ((str >> rows)&&(str >> razdel) && (str >> columns) && (razdel == ',')) {
+    
+    if ((str >> nrows)&&(str >> razdel) && (str >> ncolumns) && (razdel == ',')&&(nrows>0)&&(ncolumns>0)) 
+        {
+        rows=nrows;
+        columns=ncolumns;
         return true;
     }
     return false;
@@ -80,7 +85,9 @@ bool get_sdvig(unsigned int &sdvig)
     char razdel;
     getline(cin, header);
     istringstream str(header);
-    if(str>>sdvig){
+    int nsdvig;
+    if(str>>nsdvig&&nsdvig>0){
+    	sdvig=nsdvig;
     	return true;
     }
     return false;

@@ -124,13 +124,19 @@ int main()
 {
     float** matrix;
     unsigned int columns,rows,sdvig;
-    if(get_size(columns,rows)&&get_matrix(matrix,columns,rows)&&get_sdvig(sdvig))
+    if(get_size(columns,rows))
     {
+        if(get_matrix(matrix,columns,rows)&&get_sdvig(sdvig))
+        {
     	do_sdvig(matrix,columns,rows,sdvig);
     	cout_matrix(matrix,columns,rows);
-    }else{
-      cout<<"An error has occured while reding input data";
+        }else{
+            cout<<"An error has occured while reading input data";
       
-    }
+        }
     destroy(matrix,rows);
+    }else{
+    	cout<<"An error has occured while reading input data";
+    	exit(0);
+    }
 }

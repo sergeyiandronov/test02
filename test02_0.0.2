@@ -22,12 +22,12 @@ void  doublereverse(int *& ar,unsigned int position,unsigned int n){
 
 }
 int main() {
-    unsigned int n;
+     int n;
 
     string line;
     getline(cin,line);
     istringstream numstream(line);
-    if(!(numstream>>n)){
+    if(!(numstream>>n)||!(n>0)){
         cout<<"An error has occuried while reading input data.";
         exit(0);
     }
@@ -45,7 +45,7 @@ int main() {
     int npos;
     getline(cin,line);
     istringstream posstream(line);
-    if(!(posstream>>npos)){
+    if(!(posstream>>npos)||!(npos>0)){
         cout<<"An error has occuried while reading input data.";
         exit(0);
     }

@@ -1,0 +1,136 @@
+#include <iostream>
+#include <sstream>
+using namespace std;
+void destroy( float ** elements,
+              unsigned int rows )
+{
+    for( unsigned int i = 0; i < rows; ++i ) {
+        delete [] elements[ i ];
+    }
+    delete [] elements;
+}
+
+float** create_matrix(unsigned int columns,
+                      unsigned int rows)
+{
+    float** matrix;
+    matrix = new float*[rows];
+    for (unsigned int i = 0; i < rows; ++i) {
+        matrix[i] = new float[columns];
+        for (unsigned int j = 0; j < columns; ++j) {
+            matrix[i][j] = 0.0f;
+        }
+    }
+    return matrix;
+}
+
+
+bool get_matrix(float**& matrix,
+                unsigned int ncolumns,
+                unsigned int nrows)
+{
+    matrix = create_matrix(ncolumns, nrows);
+
+    for (unsigned int j = 0; j < nrows; j++) {
+        string new_row;
+        getline(cin, new_row);
+        istringstream stream(new_row);
+        for (unsigned int i = 0; i < ncolumns; i++) {
+            if (!(stream >> matrix[j][i])) {
+                
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+void cout_matrix(float** matrix,
+                 unsigned int ncolumns,
+                 unsigned int nrows)
+{
+
+    for (unsigned int j = 0; j < nrows; j++) {
+        for (unsigned int i = 0; i < ncolumns; i++) {
+            if (matrix[j][i] == -0) {
+                matrix[j][i] = 0;
+            }
+            cout << matrix[j][i] << "\t";
+        }
+        cout << "\n";
+    }
+}
+bool get_size(unsigned int& columns,
+              unsigned int& rows)
+{
+    string header;
+
+    char razdel;
+    getline(cin, header);
+    istringstream str(header);
+    if ((str >> rows) && (str >> razdel) && (str >> columns) && (razdel == ',')) {
+        return true;
+    }
+    return false;
+}
+bool get_sdvig(unsigned int &sdvig)
+{
+	 string header;
+
+    char razdel;
+    getline(cin, header);
+    istringstream str(header);
+    if(str>>sdvig){
+    	return true;
+    }
+    return false;
+}
+void do_sdvig(float **&matrix,
+               unsigned int columns,
+               unsigned int rows,
+               unsigned int sdvig){
+       int hp,hp1;
+       for(int s=0;s<sdvig;s++){
+       	hp=matrix[0][0];
+       	hp1=0;
+       	  for(int i=0;i<columns-1;i++){
+       	  	hp1=matrix[0][i+1];
+       	  	matrix[0][i+1]=hp;
+       	  	hp=hp1;
+       	  	
+       	  }
+       	   for(int i=0;i<rows-1;i++){
+       	  	hp1=matrix[i+1][columns-1];
+       	  	matrix[i+1][columns-1]=hp;
+       	  	hp=hp1;
+       	  	
+       	  }
+       	   for(int i=columns-1;i>0;i--){
+       	  	hp1=matrix[rows-1][i-1];
+       	  	matrix[rows-1][i-1]=hp;
+       	  	hp=hp1;
+       	  	
+       	  }
+       	   for(int i=rows-1;i>0;i--){
+       	  	hp1=matrix[i-1][0];
+       	  	matrix[i-1][0]=hp;
+       	  	hp=hp1;
+       	  	
+       	  }
+       }
+	
+}
+int main()
+{
+    float** matrix;
+    unsigned int columns,rows,sdvig;
+    if(get_size(columns,rows)&&get_matrix(matrix,columns,rows)&&get_sdvig(sdvig))
+    {
+    	do_sdvig(matrix,columns,rows,sdvig);
+    	cout_matrix(matrix,columns,rows);
+    }else{
+      cout<<"An error has occured while reding input data";
+      
+    }
+    destroy(matrix,rows);
+}

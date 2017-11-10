@@ -1,0 +1,119 @@
+#include <iostream>
+#include <sstream>
+using namespace std;
+void destroy( float ** elements,
+              unsigned int rows )
+{
+    for( unsigned int i = 0; i < rows; ++i ) {
+        delete [] elements[ i ];
+    }
+    delete [] elements;
+}
+
+float** create_matrix(unsigned int columns,
+                      unsigned int rows)
+{
+    float** matrix;
+    matrix = new float*[rows];
+    for (unsigned int i = 0; i < rows; ++i) {
+        matrix[i] = new float[columns];
+        for (unsigned int j = 0; j < columns; ++j) {
+            matrix[i][j] = 0.0f;
+        }
+    }
+    return matrix;
+}
+
+
+
+void cout_matrix(float** matrix,
+                 unsigned int ncolumns,
+                 unsigned int nrows)
+{
+
+    for (unsigned int j = 0; j < nrows; j++) {
+        for (unsigned int i = 0; i < ncolumns; i++) {
+            if (matrix[j][i] == -0) {
+                matrix[j][i] = 0;
+            }
+            cout << matrix[j][i] << "\t";
+        }
+        cout << "\n";
+    }
+}
+bool get_size(unsigned int& columns,
+              unsigned int& rows)
+{
+    string header;
+    int nrows;
+    int ncolumns;
+    char razdel;
+    getline(cin, header);
+    istringstream str(header);
+    
+    if ((str >> nrows)&&(str >> razdel) && (str >> ncolumns) && (razdel == ',')&&(nrows>0)&&(ncolumns>0)) 
+        {
+        rows=nrows;
+        columns=ncolumns;
+        return true;
+    }
+    return false;
+}
+void create_ulitka(float **&matrix,
+	  unsigned int columns,
+              unsigned int rows,
+              unsigned int level,
+              int startnum
+              )
+{
+    if(columns==0||rows==0){
+    	return;
+    }
+    if(columns==rows&&rows==1){
+    	 matrix[level][level]=startnum;
+    	 return;
+    }
+    int hp=0;
+    for(int i=0;i<columns;i++){
+       	  
+       	  matrix[0+level][i+level]=startnum+hp;
+       	  hp++;
+       	  
+       	  	
+       	  }
+    for(int i=1;i<rows;i++){
+       	       matrix[level+i][level+columns-1]=startnum+hp;
+       	       hp++;
+       	  	
+       	  }
+    for(int i=columns-2;i>-1;i--){
+       	  	matrix[level+rows-1][level+i]=startnum+hp;
+       	  	hp++;
+       	  	
+       	  }
+    for(int i=rows-2;i>0;i--){
+       	    matrix[level+i][0+level]=startnum+hp;
+       	    hp++;
+       	  	
+       	  }
+    create_ulitka(matrix,columns-2,rows-2,level+1,startnum+hp);
+    
+    
+}
+int main()
+{
+    float** matrix;
+    unsigned int columns,rows;
+    
+   
+    if(get_size(columns,rows))
+    {  matrix=create_matrix(columns,rows);
+       create_ulitka(matrix,columns,rows,0,1);
+       cout_matrix(matrix,columns,rows);
+       destroy(matrix,rows);
+    }else{
+    	cout<<"An error has occured while reading input data";
+    	exit(0);
+    }
+    
+}

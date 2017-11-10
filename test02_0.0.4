@@ -65,14 +65,11 @@ void create_ulitka(float **&matrix,
               unsigned int level,
               int startnum
               )
-{
+{   
     if(columns==0||rows==0){
     	return;
     }
-    if(columns==rows&&rows==1){
-    	 matrix[level][level]=startnum;
-    	 return;
-    }
+   
     int hp=0;
     for(int i=0;i<columns;i++){
        	  
@@ -96,6 +93,9 @@ void create_ulitka(float **&matrix,
        	    hp++;
        	  	
        	  }
+       	 if(columns-2<0||rows-2<0){
+       	 	return;
+       	 }
     create_ulitka(matrix,columns-2,rows-2,level+1,startnum+hp);
     
     
